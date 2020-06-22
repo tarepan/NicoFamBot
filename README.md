@@ -1,22 +1,29 @@
-# Voice Conversion Lab
+# にこにこふぁみりーず bot
 
-Collect "Voice Conversion" researches
+「もっとゆげちゃん成分を摂取したい！」  
+そんなあなたのために、にこふぁみ bot があなたの TL へゆげちゃん成分をお届け.
 
 ## Contents
 
-- VC Paper Introduction in [Twitter@VoiceConversion](https://twitter.com/VoiceConversion)
+**切り抜き動画ツイート/ClipTweet**を RT
+
+<!-- - VC Paper Introduction in [Twitter@VoiceConversion](https://twitter.com/VoiceConversion)
   - new VC paper candidate: offer you "latest" ArXiv VC paper candidates (within 1-hour after publication)
-  - VC paper: confirmed to be "VC" paper by human eye
+  - VC paper: confirmed to be "VC" paper by human eye -->
 
 ## System Overview
 
-**Autonomous paper candidate collection + community paper review/confirmation**
+**Autonomous tweet candidate collection + community tweet review/confirmation**
 
-Paper information is automatically and routinely collected by ArXiv Search through ArXiv api in GitHub Actions.  
-This information is published as "candidate" in Twitter.  
-Candidate information is collected in Issue of this repository, and community can comment "whether the paper is VC or not."  
+ClipTweet information is automatically and routinely collected through Twitter Search in GitHub Actions.  
+This information is collected as "candidate" in DB.  
+Candidate information is collected in Issue of this repository, and community can comment "whether the tweet is clipTweet or not."  
 Bot autonomously detect comment by community, then process the confirmation.
 
 ## Developments
 
-1st gen. established.
+Under 1st generation development.
+
+## Reference
+
+This project is based on [VClab](https://github.com/tarepan/VoiceConversionLab)
