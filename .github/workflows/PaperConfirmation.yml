@@ -14,12 +14,11 @@ jobs:
         run: |
           npm ci
           npm run-script build
-
-      - name: Confirm or Exclude
-        uses: ./.github/actions/ConfirmationAction
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
-          twi-cons-secret: ${{ secrets.TWITTERCONSUMERSECRET }}
-          twi-token-key: ${{ secrets.TWITTERTOKENKEY }}
-          twi-token-secret: ${{ secrets.TWITTERTOKENSECRET }}
+      # - name: Confirm or Exclude
+      #   uses: ./.github/actions/ConfirmationAction
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
+      #     twi-cons-secret: ${{ secrets.TWITTERCONSUMERSECRET }}
+      #     twi-token-key: ${{ secrets.TWITTERTOKENKEY }}
+      #     twi-token-secret: ${{ secrets.TWITTERTOKENSECRET }}

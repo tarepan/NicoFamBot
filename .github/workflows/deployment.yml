@@ -13,12 +13,11 @@ jobs:
         run: |
           npm ci
           npm run-script build
-
-      - name: Collect and Update
-        uses: ./.github/actions/PullShareAction
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
-          twi-cons-secret: ${{ secrets.TWITTERCONSUMERSECRET }}
-          twi-token-key: ${{ secrets.TWITTERTOKENKEY }}
-          twi-token-secret: ${{ secrets.TWITTERTOKENSECRET }}
+      # - name: Collect and Update
+      #   uses: ./.github/actions/PullShareAction
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
+      #     twi-cons-secret: ${{ secrets.TWITTERCONSUMERSECRET }}
+      #     twi-token-key: ${{ secrets.TWITTERTOKENKEY }}
+      #     twi-token-secret: ${{ secrets.TWITTERTOKENSECRET }}
