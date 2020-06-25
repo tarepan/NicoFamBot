@@ -5,11 +5,7 @@
 
 ## Contents
 
-**切り抜き動画ツイート/ClipTweet**を RT
-
-<!-- - VC Paper Introduction in [Twitter@VoiceConversion](https://twitter.com/VoiceConversion)
-  - new VC paper candidate: offer you "latest" ArXiv VC paper candidates (within 1-hour after publication)
-  - VC paper: confirmed to be "VC" paper by human eye -->
+- 切り抜き動画ツイート/ClipTweet を RT in [Twitter@にこふぁみ Clips](https://twitter.com/NicoFamBot)
 
 ## System Overview
 
