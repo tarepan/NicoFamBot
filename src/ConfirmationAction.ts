@@ -1,10 +1,9 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import { searchArXivByID } from "./arXivSearch";
-import { ArXivStorage } from "./domain";
 import { tweet } from "./twitter";
 import * as WebhooksApi from "@octokit/webhooks";
-import { updateArticleStatus, arXivID2identity } from "./updateArticles";
+import { updateTweetStatus } from "./updateTweets";
+import { TweetStorage } from "./domain";
 
 async function run(): Promise<void> {
   //@ts-ignore
@@ -16,7 +15,7 @@ async function run(): Promise<void> {
   const regResult = idRegExp.exec(issueCommentPayload.issue.body);
   // regResult == null means the issue is not for article confirmation
   if (regResult != null) {
-    const arXivID = regResult[1];
+    const tweetID = regResult[1];
 
     // extract judge
     const c = /\[vclab::confirmed\]|\[confirmed\]|vclab::confirmed/;
@@ -34,24 +33,24 @@ async function run(): Promise<void> {
           ...github.context.repo,
           // eslint-disable-next-line @typescript-eslint/camelcase
           issue_number: issueCommentPayload.issue.number,
-          body: `Thunk you very much for contribution!\nYour judgement is refrected in [arXivSearches.json](https://github.com/tarepan/VoiceConversionLab/blob/master/arXivSearches.json), and is going to be used for VCLab's activity.\nThunk you so much.`
+          body: `Thunk you very much for contribution!\nYour judgement is refrected in [arXivSearches.json](https://github.com/tarepan/VoiceConversionLab/blob/master/arXivSearches.json), and is going to be used for VCLab's activity.\nThunk you so much.`,
         })
-        .catch(err => core.setFailed(err));
+        .catch((err) => core.setFailed(err));
       // close the issue
       octokit.issues.update({
         ...github.context.repo,
         // eslint-disable-next-line @typescript-eslint/camelcase
         issue_number: issueCommentPayload.issue.number,
-        state: "closed"
+        state: "closed",
       });
 
       // update store
       //// fetch storage
       const contents = await octokit.repos.getContents({
         ...github.context.repo,
-        path: "arXivSearches.json"
+        path: "arXivSearches.json",
       });
-      const storage: ArXivStorage = JSON.parse(
+      const storage: TweetStorage = JSON.parse(
         Buffer.from(
           //@ts-ignore
           contents.data.content,
@@ -61,51 +60,47 @@ async function run(): Promise<void> {
       );
       //// update storage
       const judgeResult = isC !== null ? "confirmed" : "excluded";
-      const identity = arXivID2identity(arXivID);
-      const newStorage = updateArticleStatus(
-        storage,
-        identity.article,
-        judgeResult
-      );
+      // @ts-ignore // canbe fixed
+      const newStorage = updateTweetStatus(storage, tweetID, judgeResult);
       //// commit storage update
       const blob = Buffer.from(JSON.stringify(newStorage, undefined, 2));
       await octokit.repos
         .createOrUpdateFile({
           ...github.context.repo,
           path: "arXivSearches.json",
-          message: `Add arXiv paper confirmation ${identity.repository}-${identity.article}`,
+          message: `Add arXiv paper confirmation ${tweetID}`,
           content: blob.toString("base64"),
           // @ts-ignore
-          sha: contents.data.sha
+          sha: contents.data.sha,
         })
-        .catch(err => core.setFailed(err));
+        .catch((err) => core.setFailed(err));
 
-      // Tweet if "confirmed" (== VC paper)
-      if (isC !== null) {
-        console.log("is [vclab::confirmed]");
-        const identity = arXivID2identity(arXivID);
-        const arXivSearchID = `${identity.article}v${identity.version}`;
-        const paper = await searchArXivByID(arXivSearchID);
-        const content = `[[VC paper]]\n"${paper.title}"\narXiv: arxiv.org/abs/${identity.article}`;
-        // tweet confirmed paper
-        await tweet(
-          content,
-          core.getInput("twi-cons-key"),
-          core.getInput("twi-cons-secret"),
-          core.getInput("twi-token-key"),
-          core.getInput("twi-token-secret")
-        )
-          .then(res => {
-            console.log(res.status);
-            return res.text();
-          })
-          .catch(err => {
-            core.setFailed(err);
-          });
-        console.log("tweet created.");
-      } else if (isE !== null) {
-        console.log("is [vclab::excluded]");
-      }
+      // Retweet if "confirmed" (== VC paper)
+      // if (isC !== null) {
+      //   console.log("is [vclab::confirmed]");
+      //   const identity = arXivID2identity(tweetID);
+      //   const arXivSearchID = `${identity.article}v${identity.version}`;
+      //   const paper = await searchArXivByID(arXivSearchID);
+      //   const content = `[[VC paper]]\n"${paper.title}"\narXiv: arxiv.org/abs/${identity.article}`;
+      //   // tweet confirmed paper
+      //   await tweet(
+      //     content,
+      //     core.getInput("twi-cons-key"),
+      //     core.getInput("twi-cons-secret"),
+      //     core.getInput("twi-token-key"),
+      //     core.getInput("twi-token-secret")
+      //   )
+      //     .then((res) => {
+      //       console.log(res.status);
+      //       return res.text();
+      //     })
+      //     .catch((err) => {
+      //       core.setFailed(err);
+      //     });
+      //   console.log("tweet created.");
+      // } else if (isE !== null) {
+      //   console.log("is [vclab::excluded]");
+      // }
     } else {
       console.log("non confirmation comment");
     }
