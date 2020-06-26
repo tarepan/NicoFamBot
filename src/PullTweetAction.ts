@@ -9,7 +9,12 @@ import { searchTwitter } from "./SearchTwitter";
  */
 async function run(): Promise<void> {
   // fetch search result
-  const searchResults = await searchTwitter();
+  const searchResults = await searchTwitter(
+    core.getInput("twi-cons-key"),
+    core.getInput("twi-cons-secret"),
+    core.getInput("twi-token-key"),
+    core.getInput("twi-token-secret")
+  );
 
   // fetch storage
   const octokit = new github.GitHub(core.getInput("token"));

@@ -6,12 +6,12 @@ describe("findNewTweets", () => {
     const db: TweetStorage = [];
     const searchResult: TwitterSearchResults = [
       {
-        id: 1,
+        id: "1",
       },
     ];
     expect(findNewTweets(searchResult, db)).toStrictEqual([
       {
-        id: 1,
+        id: "1",
         status: "candidate",
         YouTubeOrigin: undefined,
       },
@@ -20,11 +20,11 @@ describe("findNewTweets", () => {
 
   it("should not find existing tweet", () => {
     const db: TweetStorage = [
-      { id: 1, status: "candidate", YouTubeOrigin: undefined },
+      { id: "1", status: "candidate", YouTubeOrigin: undefined },
     ];
     const searchResult: TwitterSearchResults = [
       {
-        id: 1,
+        id: "1",
       },
     ];
     expect(findNewTweets(searchResult, db)).toStrictEqual([]);
@@ -32,20 +32,20 @@ describe("findNewTweets", () => {
 
   it("should find only non-existing tweet", () => {
     const db: TweetStorage = [
-      { id: 1, status: "candidate", YouTubeOrigin: undefined },
-      { id: 2, status: "candidate", YouTubeOrigin: undefined },
+      { id: "1", status: "candidate", YouTubeOrigin: undefined },
+      { id: "2", status: "candidate", YouTubeOrigin: undefined },
     ];
     const searchResult: TwitterSearchResults = [
       {
-        id: 1,
+        id: "1",
       },
       {
-        id: 3,
+        id: "3",
       },
     ];
     expect(findNewTweets(searchResult, db)).toStrictEqual([
       {
-        id: 3,
+        id: "3",
         status: "candidate",
         YouTubeOrigin: undefined,
       },

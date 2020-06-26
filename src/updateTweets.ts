@@ -3,7 +3,7 @@ import { produce } from "immer";
 
 export function updateTweetStatus(
   storage: TweetStorage,
-  tweetID: number,
+  tweetID: string,
   status: resolved
 ): TweetStorage {
   return produce(storage, (draft) => {
