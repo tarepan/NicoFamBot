@@ -30,7 +30,7 @@ export async function searchTwitter(
   const searchQuery: string = strictUriEncode(
     `#杏戸ロイド filter:native_video exclude:retweets since:${since} until:${until}`
   );
-  const count = 10;
+  const count = 100;
 
   const queryString = `?q=${searchQuery}&count=${count}`;
 
