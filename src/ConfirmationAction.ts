@@ -7,6 +7,9 @@ import { fail } from "assert";
 import { unRetweet } from "./UnRetweet";
 import { retweet } from "./retweet";
 
+/**
+ * Confirm clipTweet or not based on Review in Issue, then retweet it
+ */
 async function run(): Promise<void> {
   //@ts-ignore
   const issueCommentPayload: WebhooksApi.WebhookPayloadIssueComment =
