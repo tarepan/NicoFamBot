@@ -1,10 +1,9 @@
-name: Confirm & Retweet
+name: Pull new tweets
 on:
-  issue_comment:
-    types: [created]
-
+  schedule:
+    - cron: "*/60 * * * *"
 jobs:
-  confirm-or-exclude:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -14,8 +13,9 @@ jobs:
         run: |
           npm ci
           npm run-script build
-      - name: Confirm then Retweet
-        uses: ./.github/actions/ConfirmationAction
+
+      - name: Collect and Update
+        uses: ./.github/actions/PullTweetAction
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}

@@ -1,5 +1,5 @@
-name: "Test"
-description: "test"
+name: "PullTweet"
+description: "Search tweets and register new tweets"
 inputs:
   token:
     description: "GITHUB_TOKEN"
@@ -23,4 +23,4 @@ inputs:
     default: ""
 runs:
   using: "node12"
-  main: "../../../dist/PullShareAction.js"
+  main: "../../../dist/PullTweetAction.js"

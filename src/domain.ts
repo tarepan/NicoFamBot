@@ -1,21 +1,17 @@
-// searched papers, which is used in several purpose
-export type SearchedPaper = {
-  id: string;
-  title: string;
-  summary: string;
+// searched tweet, which is used in several purpose
+export type SearchedTweet = {
+  id: string; // number, but cannot handled in Int range
 };
-export type ArXivSearchResults = SearchedPaper[];
+export type TwitterSearchResults = SearchedTweet[];
 
-// points: this is merely arXiv search result storage (status is for refined search)
+// stored tweet, which contain details
+export type status = candidate | resolved;
 export type candidate = "candidate";
-export type resolved = "confirmed" | "excluded";
-export type Identity = {
-  repository: "arXiv";
-  article: string;
-  version: string;
+export type resolved = "confirmed" | "pending" | "excluded";
+
+export type TweetRecord = {
+  id: string; // number, but cannot handled in Int range
+  status: status;
+  YouTubeOrigin: string | undefined;
 };
-export type ArXivRecord = {
-  id: Identity;
-  status: candidate | resolved;
-};
-export type ArXivStorage = ArXivRecord[];
+export type TweetStorage = TweetRecord[];
