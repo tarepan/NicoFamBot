@@ -8,6 +8,8 @@ import { searchTwitter } from "./SearchTwitter";
  * Pull tweets through Twitter API, then store new ones
  */
 async function run(): Promise<void> {
+  const targetName = "Ando UGE";
+
   // fetch search result
   const searchResults = await searchTwitter(
     core.getInput("twi-cons-key"),
@@ -40,7 +42,7 @@ async function run(): Promise<void> {
       .create({
         ...github.context.repo,
         title: `clipTweet candidate ${tweet.id}`,
-        body: `Please check whether this tweet is 'clip tweet of Ando UGE' or not.\n## tweet info.\n- id: ${tweet.id}\n## judge\nWrite [nicofam::confirmed], [nicofam::pending] or [nicofam::excluded] in comment ('pending' means 'is clipTweet, not suitable for retweet').`,
+        body: `Please check whether this tweet is 'clip tweet of ${targetName}' or not.\n## tweet info.\n- id: ${tweet.id}\n- url: https://twitter.com/twitter/status/${tweet.id}\n## judge\nWrite [nicofam::confirmed], [nicofam::pending] or [nicofam::excluded] in comment ('pending' means 'is clipTweet, not suitable for retweet').`,
       })
       .catch((err) => core.setFailed(err));
     console.log("issue created.");
