@@ -2,7 +2,7 @@ import * as core from "@actions/core";
 import * as github from "@actions/github";
 import { TweetStorage } from "./domain";
 import { findNewTweets } from "./FindNewTweet";
-import { searchTwitter } from "./SearchTwitter";
+import { searchTwitterLatest } from "./SearchTwitter";
 
 /**
  * Pull tweets through Twitter API, then store new ones
@@ -11,7 +11,7 @@ async function run(): Promise<void> {
   const targetName = "Ando UGE";
 
   // fetch search result
-  const searchResults = await searchTwitter(
+  const searchResults = await searchTwitterLatest(
     core.getInput("twi-cons-key"),
     core.getInput("twi-cons-secret"),
     core.getInput("twi-token-key"),

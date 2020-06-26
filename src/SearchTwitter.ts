@@ -3,7 +3,15 @@ import { TwitterSearchResults } from "./domain";
 import { RequestData, fetchTwitter } from "./twitter";
 import { ResTwitterSearch } from "./domainTwitter";
 
-export async function searchTwitter(
+/**
+ * Search latest clipTweets through Twitter API
+ * Search API check only latest tweets (around 7 days)
+ * @param consumerKey
+ * @param consumerSecret
+ * @param tokenKey
+ * @param tokenSecret
+ */
+export async function searchTwitterLatest(
   consumerKey: string,
   consumerSecret: string,
   tokenKey: string,
@@ -46,7 +54,7 @@ export async function searchTwitter(
 
 if (require.main === module) {
   (async () => {
-    await searchTwitter(
+    await searchTwitterLatest(
       "placeholder",
       "placeholder",
       "placeholder",

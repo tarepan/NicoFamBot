@@ -3,6 +3,10 @@ export type SearchedTweet = {
   id: string; // number, but cannot handled in Int range
 };
 export type TwitterSearchResults = SearchedTweet[];
+export type TwitterOneTimeSearchResult = {
+  twitterSearchResults: TwitterSearchResults;
+  nextMaxID: string;
+};
 
 // stored tweet, which contain details
 export type status = candidate | resolved;
