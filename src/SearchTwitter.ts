@@ -1,22 +1,7 @@
 import strictUriEncode from "strict-uri-encode";
 import { TwitterSearchResults } from "./domain";
 import { RequestData, fetchTwitter } from "./twitter";
-import { Tweet } from "./domainTwitter";
-
-export type ResTwitterSearch = {
-  statuses: Tweet[];
-  search_metadata: {
-    completed_in: number;
-    max_id: number;
-    max_id_str: string;
-    next_results: "?max_id=1124690280777699327&q=from%3Atwitterdev&count=2&include_entities=1&result_type=mixed";
-    query: "from%3Atwitterdev";
-    refresh_url: "?since_id=1125490788736032770&q=from%3Atwitterdev&result_type=mixed&include_entities=1";
-    count: number;
-    since_id: number;
-    since_id_str: string;
-  };
-};
+import { ResTwitterSearch } from "./domainTwitter";
 
 export async function searchTwitter(
   consumerKey: string,
@@ -25,10 +10,8 @@ export async function searchTwitter(
   tokenSecret: string
 ): Promise<TwitterSearchResults> {
   // request params
-  const since = "2020-01-01";
-  const until = "2020-12-31";
   const searchQuery: string = strictUriEncode(
-    `#杏戸ロイド filter:native_video exclude:retweets since:${since} until:${until}`
+    `#杏戸ロイド filter:native_video exclude:retweets`
   );
   const count = 100;
 
