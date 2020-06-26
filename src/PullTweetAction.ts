@@ -49,21 +49,24 @@ async function run(): Promise<void> {
   });
   await Promise.all(ps);
 
-  // storage update (run even if issue creation failed)
-  storage.push(...newTweetCand);
-  // commit storage update
-  const blob = Buffer.from(JSON.stringify(storage, undefined, 2));
-  await octokit.repos
-    .createOrUpdateFile({
-      ...github.context.repo,
-      path: "tweets.json",
-      message: `Add new tweets`,
-      content: blob.toString("base64"),
-      // @ts-ignore
-      sha: contents.data.sha,
-    })
-    .catch((err) => core.setFailed(err));
-  console.log("storage updated.");
+  // newTweet => storage
+  if (newTweetCand.length > 0) {
+    // storage update (run even if issue creation failed)
+    storage.push(...newTweetCand);
+    // commit storage update
+    const blob = Buffer.from(JSON.stringify(storage, undefined, 2));
+    await octokit.repos
+      .createOrUpdateFile({
+        ...github.context.repo,
+        path: "tweets.json",
+        message: `Add new tweets`,
+        content: blob.toString("base64"),
+        // @ts-ignore
+        sha: contents.data.sha,
+      })
+      .catch((err) => core.setFailed(err));
+    console.log("storage updated.");
+  }
 }
 
 run();
