@@ -1,5 +1,5 @@
-name: "Confirm Paper"
-description: "Confirm or exclude a VC paper candidate"
+name: "Confirm & Retweet"
+description: "Confirm clipTweet then retweet it"
 inputs:
   token:
     description: "GITHUB_TOKEN"

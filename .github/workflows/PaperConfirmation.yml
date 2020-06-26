@@ -1,4 +1,4 @@
-name: Confirm article
+name: Confirm & Retweet
 on:
   issue_comment:
     types: [created]
@@ -14,7 +14,7 @@ jobs:
         run: |
           npm ci
           npm run-script build
-      - name: Confirm or Exclude
+      - name: Confirm then Retweet
         uses: ./.github/actions/ConfirmationAction
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
