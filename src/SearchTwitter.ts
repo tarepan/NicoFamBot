@@ -1,34 +1,25 @@
 import strictUriEncode from "strict-uri-encode";
 import { TwitterSearchResults } from "./domain";
 import { RequestData, fetchTwitter } from "./twitter";
-import { Tweet } from "./domainTwitter";
+import { ResTwitterSearch } from "./domainTwitter";
 
-export type ResTwitterSearch = {
-  statuses: Tweet[];
-  search_metadata: {
-    completed_in: number;
-    max_id: number;
-    max_id_str: string;
-    next_results: "?max_id=1124690280777699327&q=from%3Atwitterdev&count=2&include_entities=1&result_type=mixed";
-    query: "from%3Atwitterdev";
-    refresh_url: "?since_id=1125490788736032770&q=from%3Atwitterdev&result_type=mixed&include_entities=1";
-    count: number;
-    since_id: number;
-    since_id_str: string;
-  };
-};
-
-export async function searchTwitter(
+/**
+ * Search latest clipTweets through Twitter API
+ * Search API check only latest tweets (around 7 days)
+ * @param consumerKey
+ * @param consumerSecret
+ * @param tokenKey
+ * @param tokenSecret
+ */
+export async function searchTwitterLatest(
   consumerKey: string,
   consumerSecret: string,
   tokenKey: string,
   tokenSecret: string
 ): Promise<TwitterSearchResults> {
   // request params
-  const since = "2020-01-01";
-  const until = "2020-12-31";
   const searchQuery: string = strictUriEncode(
-    `#杏戸ロイド filter:native_video exclude:retweets since:${since} until:${until}`
+    `#杏戸ロイド filter:native_video exclude:retweets`
   );
   const count = 100;
 
@@ -63,7 +54,7 @@ export async function searchTwitter(
 
 if (require.main === module) {
   (async () => {
-    await searchTwitter(
+    await searchTwitterLatest(
       "placeholder",
       "placeholder",
       "placeholder",

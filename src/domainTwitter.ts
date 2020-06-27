@@ -1,4 +1,22 @@
 /**
+ * Twitter Search API Response
+ */
+export type ResTwitterSearch = {
+  statuses: Tweet[];
+  search_metadata: {
+    completed_in: number;
+    max_id: number;
+    max_id_str: string;
+    next_results: string; // "?max_id=1124690280777699327&q=from%3Atwitterdev&count=2&include_entities=1&result_type=mixed"
+    query: string;
+    refresh_url: string; // "?since_id=1125490788736032770&q=from%3Atwitterdev&result_type=mixed&include_entities=1"
+    count: number;
+    since_id: number;
+    since_id_str: string;
+  };
+};
+
+/**
  * Parital Tweet obj
  */
 export type Tweet = {
