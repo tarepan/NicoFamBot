@@ -2,7 +2,7 @@ name: Pull new tweets
 on:
   schedule:
     # UTC
-    - cron: "17 2,12 * * *"
+    - cron: "24 2,10 * * *"
 jobs:
   re-retweet:
     runs-on: ubuntu-latest
