@@ -1,8 +1,8 @@
-name: Pull new tweets
+name: ReRetweet
 on:
   schedule:
     # UTC
-    - cron: "24 2,10 * * *"
+    - cron: "0 2,9 * * *"
 jobs:
   re-retweet:
     runs-on: ubuntu-latest
