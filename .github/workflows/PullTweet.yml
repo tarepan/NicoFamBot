@@ -3,7 +3,7 @@ on:
   schedule:
     - cron: "*/60 * * * *"
 jobs:
-  build-and-deploy:
+  pull-tweet:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
