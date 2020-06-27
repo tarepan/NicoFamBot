@@ -18,7 +18,7 @@ Bot autonomously detect comment by community, then process the confirmation.
 
 ## Developments
 
-Under 1st generation development.
+Finish 1st generation development.
 
 ## Reference
 
