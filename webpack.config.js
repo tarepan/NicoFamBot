@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     PullTweetAction: "./src/PullTweetAction.ts",
     ConfirmationAction: "./src/ConfirmationAction.ts",
+    ReRetweetAction: "./src/ReRetweetAction.ts",
   },
   devtool: "inline-source-map",
   module: {
