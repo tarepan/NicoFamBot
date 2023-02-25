@@ -1,24 +1,24 @@
-name: Confirm & Retweet
-on:
-  issue_comment:
-    types: [created]
+# name: Confirm & Retweet
+# on:
+#   issue_comment:
+#     types: [created]
 
-jobs:
-  confirm-or-exclude:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+# jobs:
+#   confirm-or-exclude:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v1
 
-      - name: Build Actions
-        run: |
-          npm ci
-          npm run-script build
-      - name: Confirm then Retweet
-        uses: ./.github/actions/ConfirmationAction
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
-          twi-cons-secret: ${{ secrets.TWITTERCONSUMERSECRET }}
-          twi-token-key: ${{ secrets.TWITTERTOKENKEY }}
-          twi-token-secret: ${{ secrets.TWITTERTOKENSECRET }}
+#       - name: Build Actions
+#         run: |
+#           npm ci
+#           npm run-script build
+#       - name: Confirm then Retweet
+#         uses: ./.github/actions/ConfirmationAction
+#         with:
+#           token: ${{ secrets.GITHUB_TOKEN }}
+#           twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
+#           twi-cons-secret: ${{ secrets.TWITTERCONSUMERSECRET }}
+#           twi-token-key: ${{ secrets.TWITTERTOKENKEY }}
+#           twi-token-secret: ${{ secrets.TWITTERTOKENSECRET }}
